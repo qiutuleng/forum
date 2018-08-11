@@ -19,7 +19,7 @@ $factory->define(App\Models\Reply::class, function (Faker $faker) {
             return factory(\App\Models\Thread::class)->create()->getKey();
         },
         'user_id' => function () {
-            return factory(\App\User::class)->create()->getKey();
+            return factory(\App\Models\User::class)->create()->getKey();
         },
         'body' => $faker->paragraph,
     ];

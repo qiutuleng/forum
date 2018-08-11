@@ -16,7 +16,7 @@ use Faker\Generator as Faker;
 $factory->define(App\Models\Thread::class, function (Faker $faker) {
     return [
         'user_id' => function () {
-            return factory(\App\User::class)->create()->getKey();
+            return factory(\App\Models\User::class)->create()->getKey();
         },
         'title' => $faker->sentence,
         'body' => $faker->paragraph,
