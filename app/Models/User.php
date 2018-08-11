@@ -26,4 +26,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function getName()
+    {
+        return $this->getAttribute('name');
+    }
+
+    public function getEmail()
+    {
+        return $this->getAttribute('email');
+    }
 }
