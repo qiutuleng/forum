@@ -27,11 +27,17 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->getAttribute('name');
     }
 
+    /**
+     * @return string
+     */
     public function getEmail()
     {
         return $this->getAttribute('email');

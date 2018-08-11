@@ -38,4 +38,12 @@ trait HasOwner
     {
         return $this->getUserId();
     }
+
+    /**
+     * @return string
+     */
+    public function getOwnerName()
+    {
+        return $this->getOwner()->getName();
+    }
 }
