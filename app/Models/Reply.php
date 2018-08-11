@@ -10,7 +10,7 @@ class Reply extends Model
     use HasOwner;
 
     protected $fillable = [
-        'body',
+        'user_id', 'body',
     ];
 
     public function getBody()

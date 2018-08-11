@@ -6,11 +6,12 @@ use App\Models\Thread;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class ThreadTest extends TestCase
 {
-    use RefreshDatabase;
+    use WithFaker, RefreshDatabase;
 
     /**
      * @var Thread
@@ -34,5 +35,16 @@ class ThreadTest extends TestCase
     public function a_thread_has_a_owner()
     {
         $this->assertInstanceOf(User::class, $this->thread->getOwner());
+    }
+
+    /** @test */
+    public function a_thread_can_add_reply()
+    {
+        $this->thread->addReply([
+            'body' => $this->faker->paragraph,
+            'user_id' => 1,
+        ]);
+
+        $this->assertCount(1, $this->thread->getReplies());
     }
 }

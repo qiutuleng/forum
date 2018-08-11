@@ -54,4 +54,9 @@ class Thread extends Model
     {
         return $this->getAttributeValue('body');
     }
+
+    public function addReply(array $reply)
+    {
+        return $this->replies()->create($reply);
+    }
 }

@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reply;
+use App\Models\Thread;
 use Illuminate\Http\Request;
 
-class ReplyController extends Controller
+class RepliesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -30,12 +31,21 @@ class ReplyController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param Thread $thread
      * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Thread $thread, Request $request)
     {
-        //
+        $this->validate($request, [
+            'body' => 'required|string|max:60000'
+        ]);
+        $thread->addReply([
+            'body' => $request->get('body'),
+            'user_id' => $request->user()->getKey(),
+        ]);
+
+        return back();
     }
 
     /**
