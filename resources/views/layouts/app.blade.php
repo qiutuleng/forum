@@ -47,7 +47,7 @@
                            aria-expanded="false" aria-haspopup="true" v-pre>Channels <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            @foreach(\App\Models\Channel::all() as $channel)
+                            @foreach($channels as $channel)
                                 <li><a href="{{ route('threads.index', $channel) }}">{{ $channel->getName() }}</a></li>
                             @endforeach
                         </ul>
