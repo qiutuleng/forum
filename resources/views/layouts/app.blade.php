@@ -38,6 +38,10 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     <li><a href="{{ route('threads.index') }}">All Threads</a></li>
+
+
+                    <li><a href="{{ route('threads.create') }}">New Thread</a></li>
+
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                            aria-expanded="false" aria-haspopup="true" v-pre>Channels <span class="caret"></span>
