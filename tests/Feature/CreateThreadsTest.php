@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Models\Thread;
-use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -14,9 +13,13 @@ class CreateThreadsTest extends TestCase
     /** @test */
     public function guests_may_not_create_thread()
     {
-        $this->expectException(AuthenticationException::class);
+        $this->withExceptionHandling();
 
-        $this->post(route('threads.store'));
+        $this->get(route('threads.create'))
+            ->assertRedirect(route('login'));
+
+        $this->post(route('threads.store'))
+            ->assertRedirect(route('login'));
     }
 
     /** @test */

@@ -25,7 +25,7 @@ class ThreadsController extends Controller
      */
     public function create()
     {
-        //
+        return view('threads.create');
     }
 
     /**
@@ -36,6 +36,11 @@ class ThreadsController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'title' => 'required|max:255',
+            'body' => 'required',
+        ]);
+
         $thread = $request->user()
             ->threads()
             ->create($request->only(['title', 'body']));

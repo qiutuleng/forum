@@ -36,10 +36,6 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $exception)
     {
-        if (app()->runningUnitTests()) {
-            throw $exception;
-        };
-
         parent::report($exception);
     }
 
