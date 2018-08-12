@@ -11,8 +11,6 @@
                         <form method="post" action="{{ route('threads.store') }}">
                             {{ csrf_field() }}
 
-                            <input type="hidden" name="channel_id" value="{{ $channel->getKey() }}">
-
                             <div class="form-group">
                                 <label for="title">Title:</label>
                                 <input type="text" name="title" id="title" class="form-control">
