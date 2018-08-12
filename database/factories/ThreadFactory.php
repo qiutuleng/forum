@@ -13,14 +13,12 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(App\Models\Reply::class, function (Faker $faker) {
+$factory->define(App\Models\Thread::class, function (Faker $faker) {
     return [
-        'thread_id' => function () {
-            return factory(\App\Models\Thread::class)->create()->getKey();
-        },
         'user_id' => function () {
             return factory(\App\Models\User::class)->create()->getKey();
         },
+        'title' => $faker->sentence,
         'body' => $faker->paragraph,
     ];
 });
