@@ -36,7 +36,11 @@ class ThreadsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $thread = $request->user()
+            ->threads()
+            ->create($request->only(['title', 'body']));
+
+        return redirect()->route('threads.show', $thread);
     }
 
     /**

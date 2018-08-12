@@ -21,8 +21,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('threads', 'ThreadsController@index')->name('threads.index');
 Route::get('threads/{thread}', 'ThreadsController@show')->name('threads.show');
+Route::post('threads', 'ThreadsController@store')
+    ->middleware('auth')
+    ->name('threads.store');
+
 Route::post('threads/{thread}/replies', 'RepliesController@store')
-    ->name('replies.store')
-    ->middleware('auth');
+    ->middleware('auth')
+    ->name('replies.store');
 
 Route::resource('articles', 'ThreadsController');
