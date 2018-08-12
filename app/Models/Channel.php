@@ -31,6 +31,12 @@ class Channel extends Model
         return $this->getRelationValue('threads');
     }
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
+
     /**
      * Get a name attribute.
      *
