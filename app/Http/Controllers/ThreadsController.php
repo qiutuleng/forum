@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Filters\ThreadFilters;
 use App\Models\Channel;
 use App\Models\Thread;
-use App\Models\User;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class ThreadsController extends Controller
@@ -13,21 +12,13 @@ class ThreadsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
+     * @param ThreadFilters $filters
      * @param Channel|null $channel
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, Channel $channel = null)
+    public function index(ThreadFilters $filters, Channel $channel = null)
     {
-        $builder = $channel ? $channel->threads() : Thread::query();
-
-        if ($username = $request->get('by')) {
-            $builder->when(User::findByName($username), function (Builder $builder, User $user) {
-                $builder->byOwner($user);
-            });
-        }
-
-        $threads = $builder->latest()->get();
+        $threads = Thread::filters($filters, ['channel' => $channel])->latest()->get();
 
         return view('threads.index', compact('threads'));
     }
@@ -66,12 +57,15 @@ class ThreadsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param $channelSlug
-     * @param  \App\Models\Thread $thread
+     * @param Channel $channel
+     * @param ThreadFilters $filters
+     * @param  \App\Models\Thread $threadId
      * @return \Illuminate\Http\Response
      */
-    public function show($channelSlug, Thread $thread)
+    public function show(Channel $channel, ThreadFilters $filters, $threadId)
     {
+        $thread = Thread::filters($filters, ['channel' => $channel])->findOrFail($threadId);
+
         return view('threads.show', compact('thread'));
     }
 

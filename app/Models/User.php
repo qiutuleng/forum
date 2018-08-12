@@ -27,7 +27,7 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public static function findByName(string $getName)
+    public static function findByName($getName)
     {
         return static::where('name', $getName)->first();
     }

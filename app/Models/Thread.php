@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Filters\Filters;
 use App\Models\Traits\HasOwner;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
@@ -101,5 +103,10 @@ class Thread extends Model
     public function addReply(array $reply)
     {
         return $this->replies()->create($reply);
+    }
+
+    public function scopeFilters(Builder $builder, Filters $filters, $extra = [])
+    {
+        return $filters->apply($builder, $extra);
     }
 }
