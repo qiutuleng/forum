@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Channel;
 use App\Models\Thread;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -35,6 +36,38 @@ class CreateThreadsTest extends TestCase
         $this->get($response->headers->get('Location'))
             ->assertSee($thread->getTitle())
             ->assertSee($thread->getBody());
+    }
+
+    /** @test */
+    public function a_thread_requires_a_title()
+    {
+        $this->withExceptionHandling()
+            ->publishThread(['title' => null])
+            ->assertSessionHasErrors(['title']);
+    }
+
+    /** @test */
+    public function a_thread_requires_a_body()
+    {
+        $this->withExceptionHandling()
+            ->publishThread(['body' => null])
+            ->assertSessionHasErrors(['body']);
+    }
+
+    /** @test */
+    public function a_thread_requires_a_valid_channel()
+    {
+        $this->withExceptionHandling();
+
+        $this->publishThread(['channel_id' => null])
+            ->assertSessionHasErrors('channel_id');
+
+        $this->publishThread(['channel_id' => 999])
+            ->assertSessionHasErrors('channel_id');
+
+        $channel = create(Channel::class);
+        $this->publishThread(['channel_id' => $channel->getKey()])
+            ->assertRedirect();
     }
 
     protected function publishThread($overrides = [])
