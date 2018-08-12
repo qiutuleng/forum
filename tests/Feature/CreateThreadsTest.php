@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Models\Thread;
-use App\Models\User;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -23,9 +22,9 @@ class CreateThreadsTest extends TestCase
     /** @test */
     public function an_authenticated_user_can_create_new_form_threads()
     {
-        $this->signIn(factory(User::class)->create());
+        $this->signIn();
 
-        $thread = factory(Thread::class)->make();
+        $thread = make(Thread::class);
         $this->post(route('threads.store'), $thread->toArray())
             ->assertRedirect();
 

@@ -20,7 +20,7 @@ class ReplyTest extends TestCase
     {
         parent::setUp();
 
-        $this->reply = factory(Reply::class)->create();
+        $this->reply = create(Reply::class);
     }
 
     /** @test */
