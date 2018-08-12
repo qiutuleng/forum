@@ -27,6 +27,11 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public static function findByName(string $getName)
+    {
+        return static::where('name', $getName)->first();
+    }
+
     public function threads()
     {
         return $this->hasMany(Thread::class);
