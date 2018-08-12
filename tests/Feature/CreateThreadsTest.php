@@ -28,11 +28,21 @@ class CreateThreadsTest extends TestCase
         $this->signIn();
 
         $thread = make(Thread::class);
-        $this->post(route('threads.store'), $thread->toArray())
-            ->assertRedirect();
 
-        $this->get($thread->path())
+        $response = $this->publishThread($thread->toArray());
+        $response->assertRedirect();
+
+        $this->get($response->headers->get('Location'))
             ->assertSee($thread->getTitle())
             ->assertSee($thread->getBody());
+    }
+
+    protected function publishThread($overrides = [])
+    {
+        $this->signIn();
+
+        $thread = make(Thread::class, $overrides);
+
+        return $this->post(route('threads.store'), $thread->toArray());
     }
 }

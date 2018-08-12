@@ -19,15 +19,20 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('threads', 'ThreadsController@index')->name('threads.index');
+Route::group(['prefix' => 'channels',], function () {
+    Route::group(['prefix' => '{channel_slug}',], function () {
+        Route::get('threads/{thread}', 'ThreadsController@show')->name('threads.show');
+    });
+});
+
 Route::get('threads/create', 'ThreadsController@create')
     ->middleware('auth')
     ->name('threads.create');
-Route::get('threads/{thread}', 'ThreadsController@show')->name('threads.show');
 Route::post('threads', 'ThreadsController@store')
     ->middleware('auth')
     ->name('threads.store');
-
 Route::post('threads/{thread}/replies', 'RepliesController@store')
     ->middleware('auth')
     ->name('replies.store');
+
+Route::get('threads', 'ThreadsController@index')->name('threads.index');

@@ -33,6 +33,8 @@ class User extends Authenticatable
     }
 
     /**
+     * Get a name attribute.
+     *
      * @return string
      */
     public function getName()
@@ -41,6 +43,8 @@ class User extends Authenticatable
     }
 
     /**
+     * Get a email attribute.
+     *
      * @return string
      */
     public function getEmail()

@@ -13,6 +13,11 @@ class Reply extends Model
         'user_id', 'body',
     ];
 
+    /**
+     * Get a body attribute.
+     *
+     * @return string
+     */
     public function getBody()
     {
         return $this->getAttributeValue('body');

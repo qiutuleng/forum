@@ -39,22 +39,24 @@ class ThreadsController extends Controller
         $this->validate($request, [
             'title' => 'required|max:255',
             'body' => 'required',
+            'channel_id' => 'required|exists:channels,id',
         ]);
 
         $thread = $request->user()
             ->threads()
-            ->create($request->only(['title', 'body']));
+            ->create($request->only(['title', 'body', 'channel_id']));
 
-        return redirect()->route('threads.show', $thread);
+        return redirect($thread->path());
     }
 
     /**
      * Display the specified resource.
      *
+     * @param $channelSlug
      * @param  \App\Models\Thread $thread
      * @return \Illuminate\Http\Response
      */
-    public function show(Thread $thread)
+    public function show($channelSlug, Thread $thread)
     {
         return view('threads.show', compact('thread'));
     }

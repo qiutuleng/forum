@@ -31,6 +31,7 @@ class RepliesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param $channelSlug
      * @param Thread $thread
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
