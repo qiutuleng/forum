@@ -4,6 +4,7 @@ namespace App\Models\Traits;
 
 
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 
 trait HasOwner
 {
@@ -21,6 +22,16 @@ trait HasOwner
     public function getOwner()
     {
         return $this->getRelationValue('owner');
+    }
+
+    public function scopeByOwner(Builder $builder, $user)
+    {
+        $builder->where('user_id', $user instanceof User ? $user->getKey() : $user);
+    }
+
+    public function scopeByOwnerId(Builder $builder, $userId)
+    {
+        $this->scopeByOwner($builder, $userId);
     }
 
     /**

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Channel;
 use App\Models\Thread;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class ThreadsController extends Controller
@@ -11,12 +13,19 @@ class ThreadsController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @param Channel|null $channel
      * @return \Illuminate\Http\Response
      */
-    public function index(Channel $channel = null)
+    public function index(Request $request, Channel $channel = null)
     {
         $builder = $channel ? $channel->threads() : Thread::query();
+
+        if ($username = $request->get('by')) {
+            $builder->when(User::findByName($username), function (Builder $builder, User $user) {
+                $builder->byOwner($user);
+            });
+        }
 
         $threads = $builder->latest()->get();
 
