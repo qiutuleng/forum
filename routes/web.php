@@ -28,5 +28,3 @@ Route::post('threads', 'ThreadsController@store')
 Route::post('threads/{thread}/replies', 'RepliesController@store')
     ->middleware('auth')
     ->name('replies.store');
-
-Route::resource('articles', 'ThreadsController');
