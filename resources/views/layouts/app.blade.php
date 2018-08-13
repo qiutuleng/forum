@@ -21,6 +21,15 @@
         .without-pagination-margin-top > .pagination {
             margin-top: 0 !important;
         }
+
+        .level {
+            display: flex;
+            align-items: center;
+        }
+
+        .flex {
+            flex: 1;
+        }
     </style>
 </head>
 <body>
