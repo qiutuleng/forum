@@ -16,9 +16,13 @@ class ThreadsController extends Controller
      * @param Channel|null $channel
      * @return \Illuminate\Http\Response
      */
-    public function index(ThreadFilters $filters, Channel $channel = null)
+    public function index(Request $request, ThreadFilters $filters, Channel $channel = null)
     {
-        $threads = Thread::filters($filters, ['channel' => $channel])->withCount('replies')->latest()->get();
+        $threads = Thread::filters($filters, ['channel' => $channel])->latest()->get();
+
+        if ($request->wantsJson()) {
+            return $threads;
+        }
 
         return view('threads.index', compact('threads'));
     }

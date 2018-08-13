@@ -62,6 +62,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="{{ route('threads.index') }}">All Threads</a></li>
+
                             @auth
                                 <li>
                                     <a href="{{ route('threads.index', ['', 'by' => Auth::user()->getName()]) }}">
@@ -69,6 +70,8 @@
                                     </a>
                                 </li>
                             @endauth
+
+                            <li><a href="{{ route('threads.index', ['', 'popular' => true]) }}">Popular Threads</a></li>
                         </ul>
                     </li>
 

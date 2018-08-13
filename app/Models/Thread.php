@@ -16,6 +16,16 @@ class Thread extends Model
         'channel_id', 'title', 'body',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('repliesCount', function (Builder $builder) {
+            $builder->withCount('replies');
+        });
+    }
+
+
     /**
      * Belongs to a channel.
      *

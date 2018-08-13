@@ -11,7 +11,8 @@ class ThreadFilters extends Filters
 {
     protected $filters = [
         'by' => 'byUsername',
-        'channel' => 'byChannel'
+        'channel' => 'byChannel',
+        'popular' => 'sortByPopular',
     ];
 
     /**
@@ -34,5 +35,17 @@ class ThreadFilters extends Filters
         if (!($channel instanceof Channel)) return;
 
         $this->builder->where('channel_id', $channel->getKey());
+    }
+
+    /**
+     * Filter the query according to most popular threads.
+     *
+     * @param $popular
+     */
+    public function sortByPopular($popular)
+    {
+        if (!$popular) return;
+
+        $this->builder->latest('replies_count');
     }
 }

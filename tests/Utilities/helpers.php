@@ -1,22 +1,40 @@
 <?php
 
 if (!function_exists('create')) {
-    function create($class, array $attributes = [])
+    /**
+     * @param $class
+     * @param array $attributes
+     * @param null $times
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    function create($class, array $attributes = [], $times = null)
     {
-        return factory($class)->create($attributes);
+        return factory($class)->times($times)->create($attributes);
     }
 }
 
 if (!function_exists('make')) {
-    function make($class, array $attributes = [])
+    /**
+     * @param $class
+     * @param array $attributes
+     * @param null $times
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    function make($class, array $attributes = [], $times = null)
     {
-        return factory($class)->make($attributes);
+        return factory($class)->times($times)->make($attributes);
     }
 }
 
 if (!function_exists('raw')) {
-    function raw($class, array $attributes = [])
+    /**
+     * @param $class
+     * @param array $attributes
+     * @param null $times
+     * @return array
+     */
+    function raw($class, array $attributes = [], $times = null)
     {
-        return factory($class)->raw($attributes);
+        return factory($class)->times($times)->raw($attributes);
     }
 }
