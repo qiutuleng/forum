@@ -12,8 +12,18 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <style>
+        body {
+            padding-bottom: 50px
+        }
+
+        .without-pagination-margin-top > .pagination {
+            margin-top: 0 !important;
+        }
+    </style>
 </head>
-<body style="padding-bottom: 50px">
+<body>
 <div id="app">
     <nav class="navbar navbar-default navbar-static-top">
         <div class="container">

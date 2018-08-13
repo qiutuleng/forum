@@ -64,9 +64,11 @@ class ThreadsController extends Controller
      */
     public function show(Channel $channel, ThreadFilters $filters, $threadId)
     {
+        /** @var Thread $thread */
         $thread = Thread::filters($filters, ['channel' => $channel])->findOrFail($threadId);
+        $replies = $thread->replies()->paginate(2);
 
-        return view('threads.show', compact('thread'));
+        return view('threads.show', compact('thread', 'replies'));
     }
 
     /**
