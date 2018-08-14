@@ -7,7 +7,7 @@ use App\Models\User;
 use Auth;
 use Illuminate\Database\Eloquent\Collection;
 
-trait Favoriteable
+trait Favoritable
 {
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany

@@ -14,6 +14,8 @@ class Reply extends Model
         'user_id', 'body',
     ];
 
+    protected $with = ['owner', 'favorites'];
+
     /**
      * Get a body attribute.
      *
