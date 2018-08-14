@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reply;
+use Illuminate\Http\Request;
 
 class FavoritesController extends Controller
 {
@@ -12,11 +13,11 @@ class FavoritesController extends Controller
      * @param Reply $reply
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
-    public function store(Reply $reply)
+    public function store(Request $request, Reply $reply)
     {
         $reply->favorite();
 
-        return $this->noContent();
+        return $request->wantsJson() ? $this->noContent() : back();
     }
 
     /**
@@ -25,10 +26,10 @@ class FavoritesController extends Controller
      * @param Reply $reply
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
-    public function destroy(Reply $reply)
+    public function destroy(Request $request, Reply $reply)
     {
         $reply->cancelFavorite();
 
-        return $this->noContent();
+        return $request->wantsJson() ? $this->noContent() : back();
     }
 }
