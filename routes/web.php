@@ -31,3 +31,10 @@ Route::post('threads/{thread}/replies', 'RepliesController@store')
     ->middleware('auth')
     ->name('replies.store');
 
+
+Route::post('replies/{reply}/favorites', 'FavoritesController@store')
+    ->middleware('auth')
+    ->name('replies.favorites');
+Route::delete('replies/{reply}/favorites', 'FavoritesController@destroy')
+    ->middleware('auth')
+    ->name('replies.favorites');
